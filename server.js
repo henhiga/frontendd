@@ -2,7 +2,7 @@ const express = require('express');
 const fetch = global.fetch || require('node-fetch'); // node 18+ tem fetch global
 const app = express();
 
-const BACKEND_URL = process.env.BACKEND_URL || 'http://10.0.2.234:25000';
+const BACKEND_URL = process.env.BACKEND_URL || 'http://10.0.2.185:25000';
 const PORT = process.env.PORT || 8080;
 
 app.use(express.static('public'));
