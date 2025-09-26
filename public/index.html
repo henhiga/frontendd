@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Verifica Bola de Ouro</title></head>
+<body>
+  <h1>Verifica se um jogador já ganhou a Bola de Ouro</h1>
+  <form id="frm">
+    <input id="name" placeholder="Digite o nome (ex: Lionel Messi)" required/>
+    <button type="submit">Verificar</button>
+  </form>
+  <div id="result"></div>
+<script>
+document.getElementById('frm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  document.getElementById('result').textContent = 'Carregando...';
+  try {
+    const res = await fetch(`/api/check?name=${encodeURIComponent(name)}`);
+    const j = await res.json();
+    if (res.ok) {
+      document.getElementById('result').textContent = j.won ? `${name} já ganhou a Bola de Ouro.` : `${name} NÃO ganhou a Bola de Ouro.`;
+    } else {
+      document.getElementById('result').textContent = `Erro: ${j.error || JSON.stringify(j)}`;
+    }
+  } catch (err) {
+    document.getElementById('result').textContent = 'Erro ao conectar: ' + err;
+  }
+});
+</script>
+</body>
+</html>
